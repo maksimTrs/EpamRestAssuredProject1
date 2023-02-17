@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "default": {},
+  "required": [
+    "args",
+    "headers",
+    "url"
+  ],
+  "properties": {
+    "args": {
+      "type": "object",
+      "default": {},
+      "properties": {}
+    },
+    "headers": {
+      "type": "object",
+      "default": {},
+      "required": [
+        "x-forwarded-proto",
+        "x-forwarded-port",
+        "host",
+        "x-amzn-trace-id",
+        "user-agent",
+        "accept",
+        "accept-encoding"
+      ],
+      "properties": {
+        "x-forwarded-proto": {
+          "type": "string",
+          "default": ""
+        },
+        "x-forwarded-port": {
+          "type": "string",
+          "default": ""
+        },
+        "host": {
+          "type": "string",
+          "default": ""
+        },
+        "x-amzn-trace-id": {
+          "type": "string",
+          "default": ""
+        },
+        "user-agent": {
+          "type": "string",
+          "default": ""
+        },
+        "accept": {
+          "type": "string",
+          "default": ""
+        },
+        "postman-token": {
+          "type": "string",
+          "default": ""
+        },
+        "accept-encoding": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "url": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
