@@ -15,10 +15,9 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static utils.StatusCode.CODE_200;
 
 @Feature("API <<< jsonplaceholder.typicode.com/users >>> test")
-public class ResponseHeaderTest  extends BaseTest {
+public class ResponseHeaderTest extends BaseTest {
 
     @Story("TEST: check the content-type header")
     @Test(description = "TEST: check the content-type header")
@@ -39,5 +38,8 @@ public class ResponseHeaderTest  extends BaseTest {
 
         assertThat(new String(Files.readAllBytes(Paths.get(responseJsonBody))))
                 .containsIgnoringWhitespaces(response.body().asString());
+
+
+        logger.debug("|||<<< Sent Header data:  " + queryRequestInfo().getHeaders().get("Content-Type") + " >>>|||");
     }
 }

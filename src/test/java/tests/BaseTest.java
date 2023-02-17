@@ -14,7 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -29,19 +28,16 @@ import static utils.RouteApiConstants.USERS;
 public abstract class BaseTest {
 
 
+    public static String responseJsonBody = "src/test/resources/responseApiBody.json";
+    public static Logger logger = Logger.getLogger(BaseTest.class);
+    public PrintStream printStream;
     RequestSpecification requestSpecification;
     ResponseSpecification responseSpecification;
-
-    public static String  responseJsonBody  = "src/test/resources/responseApiBody.json";
-
-    public static Logger logger = Logger.getLogger(BaseTest.class);
-
-    public PrintStream printStream;
 
     @BeforeSuite
     private static void executePreConditions() {
 
-        Path path = FileSystems.getDefault().getPath("target/allure-results");
+        Path path = FileSystems.getDefault().getPath("//target/allure-results");
         try {
             Files.deleteIfExists(path);
         } catch (NoSuchFileException x) {
@@ -72,7 +68,6 @@ public abstract class BaseTest {
                 .expectContentType(ContentType.JSON)
                 .build();
     }
-
 
     public QueryableRequestSpecification queryRequestInfo() {
         return SpecificationQuerier.query(requestSpecification);
