@@ -32,16 +32,16 @@ public abstract class BaseTest {
     RequestSpecification requestSpecification;
     ResponseSpecification responseSpecification;
 
-    public static File responseJsonBody;
+    public static String  responseJsonBody  = "src/test/resources/responseApiBody.json";
 
     public static Logger logger = Logger.getLogger(BaseTest.class);
 
     public PrintStream printStream;
 
     @BeforeSuite
-    private static void deleteAllureResults() {
+    private static void executePreConditions() {
 
-        Path path = FileSystems.getDefault().getPath("//target/allure-results");
+        Path path = FileSystems.getDefault().getPath("target/allure-results");
         try {
             Files.deleteIfExists(path);
         } catch (NoSuchFileException x) {
@@ -51,8 +51,6 @@ public abstract class BaseTest {
         } catch (IOException ix) {
             ix.printStackTrace();
         }
-
-        responseJsonBody = new File("src/test/resources/responseApiBody.json");
     }
 
     @BeforeClass
@@ -83,8 +81,9 @@ public abstract class BaseTest {
 
     @BeforeMethod
     public void beforeMethod(Method m) {
+        logger.info("********************************************************************************");
         logger.info("WAS STARTED TEST: " + m.getName());
         logger.info("THREAD ID: " + Thread.currentThread().getId());
+        logger.info("********************************************************************************");
     }
-
 }

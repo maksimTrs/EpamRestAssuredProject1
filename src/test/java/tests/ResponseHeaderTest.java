@@ -9,16 +9,20 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static utils.StatusCode.CODE_200;
 
 @Feature("API <<< jsonplaceholder.typicode.com/users >>> test")
-public class ResponseCodeTest extends BaseTest {
+public class ResponseHeaderTest  extends BaseTest {
 
-    @Story("TEST: status code of the obtained response is 200 OK")
-    @Test(description = "TEST: status code of the obtained response is 200 OK")
-    public void validateResponseStatusCodeTest() {
+    @Story("TEST: check the content-type header")
+    @Test(description = "TEST: check the content-type header")
+    public void validateResponseHeaderTest() throws IOException {
 
         Response response = given()
                 .spec(requestSpecification)
@@ -30,9 +34,10 @@ public class ResponseCodeTest extends BaseTest {
                 .spec(responseSpecification)
                 .extract().response();
 
-        assertThat(response.statusCode()).isEqualTo(CODE_200.CODE);
-        assertThat(response.statusLine()).contains(CODE_200.MSG);
-        // assertThat(queryRequestInfo().getHeaders().toString(), containsString("header=value1"));
-        // assertThat(response.body().asString(), matchesJsonSchemaInClasspath("JsonSchema.json"));
+        assertThat(response.getHeaders().toString()).contains("Content-Type");
+        assertThat(response.getHeader("Content-Type")).isEqualTo("application/json; charset=utf-8");
+
+        assertThat(new String(Files.readAllBytes(Paths.get(responseJsonBody))))
+                .containsIgnoringWhitespaces(response.body().asString());
     }
 }
