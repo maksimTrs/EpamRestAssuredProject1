@@ -37,7 +37,7 @@ public class ResponseHeaderTest extends BaseTest {
         assertThat(response.getHeader("Content-Type")).isEqualTo("application/json; charset=utf-8");
 
         assertThat(new String(Files.readAllBytes(Paths.get(responseJsonBody))))
-                .containsIgnoringWhitespaces(response.body().asString());
+                .isEqualToIgnoringWhitespace(response.body().asString());
 
 
         logger.debug("|||<<< Sent Header data:  " + queryRequestInfo().getHeaders().get("Content-Type") + " >>>|||");
