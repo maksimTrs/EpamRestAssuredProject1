@@ -1,6 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="mail-api-runner">
-    <!--parallel="classes" thread-count="2"-->
+<suite name="mail-api-runner" parallel="classes" thread-count="4">
 
     <test name="API_TEST_REGRESSION">
         <packages>
