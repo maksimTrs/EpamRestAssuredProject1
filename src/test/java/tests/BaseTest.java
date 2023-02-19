@@ -28,6 +28,7 @@ public abstract class BaseTest {
 
 
     public static String responseJsonBody = "src/test/resources/responseApiBody.json";
+    // public static String responseJsonBody = "responseApiBody.json";
     public static Logger logger = Logger.getLogger(BaseTest.class);
     public static PrintStream printStream;
     public static RequestSpecification testRequestSpecification;
