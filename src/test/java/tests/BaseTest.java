@@ -14,8 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
@@ -31,9 +29,9 @@ public abstract class BaseTest {
 
     public static String responseJsonBody = "src/test/resources/responseApiBody.json";
     public static Logger logger = Logger.getLogger(BaseTest.class);
-    public PrintStream printStream;
-    RequestSpecification requestSpecification;
-    ResponseSpecification responseSpecification;
+    public static PrintStream printStream;
+    public static RequestSpecification testRequestSpecification;
+    public static ResponseSpecification testResponseSpecification;
 
     @BeforeSuite
     private static void executePreConditions() {
@@ -51,9 +49,12 @@ public abstract class BaseTest {
     }
 
     @BeforeClass
-    public void setUp() {
+    public void setUp() throws IOException {
 
-        requestSpecification = new RequestSpecBuilder()
+        Path directories = Files.createDirectories(Paths.get("logs/" + System.currentTimeMillis()));
+        printStream = new PrintStream(directories + "/RestAPILog.log_" + System.currentTimeMillis());
+
+        testRequestSpecification = new RequestSpecBuilder()
                 .setBaseUri(BASE_URL_PATH)
                 .setBasePath(USERS)
                 .addFilter(new AllureRestAssured())
@@ -61,7 +62,7 @@ public abstract class BaseTest {
                 .log(LogDetail.ALL)
                 .build();
 
-        responseSpecification = new ResponseSpecBuilder()
+        testResponseSpecification = new ResponseSpecBuilder()
                 .log(LogDetail.ALL)
                 .expectBody(matchesJsonSchemaInClasspath("JsonSchema.json"))
                 .expectContentType(ContentType.JSON)
@@ -69,17 +70,12 @@ public abstract class BaseTest {
     }
 
     public QueryableRequestSpecification queryRequestInfo() {
-        return SpecificationQuerier.query(requestSpecification);
+        return SpecificationQuerier.query(testRequestSpecification);
     }
 
 
     @BeforeMethod
-    public void beforeMethod(Method m) throws IOException {
-
-        Path directories = Files.createDirectories(Paths.get("logs/" + System.currentTimeMillis()));
-        printStream = new PrintStream(
-                directories
-                        +  "/RestAPILog.log_" + System.currentTimeMillis());
+    public void beforeMethod(Method m) {
 
         logger.info("********************************************************************************");
         logger.info("WAS STARTED TEST: " + m.getName());

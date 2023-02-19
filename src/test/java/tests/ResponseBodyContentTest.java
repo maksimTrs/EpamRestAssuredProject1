@@ -24,13 +24,13 @@ public class ResponseBodyContentTest extends BaseTest {
     public void validateResponseEntitiesCountTest() {
 
         List<UserItem> users = given()
-                .spec(requestSpecification)
+                .spec(testRequestSpecification)
                 .filter(new RequestLoggingFilter(LogDetail.URI, printStream))
                 .filter(new ResponseLoggingFilter(LogDetail.ALL, printStream))
                 .when()
                 .get()
                 .then()
-                .spec(responseSpecification)
+                .spec(testResponseSpecification)
                 //.extract().as(UserItem.class);
                 .extract().as(new TypeRef<>() {
                 });
@@ -45,13 +45,13 @@ public class ResponseBodyContentTest extends BaseTest {
     public void validateResponseEntitiesCountTest2() {
 
         Response response = given()
-                .spec(requestSpecification)
+                .spec(testRequestSpecification)
                 .filter(new RequestLoggingFilter(LogDetail.URI, printStream))
                 .filter(new ResponseLoggingFilter(LogDetail.ALL, printStream))
                 .when()
                 .get()
                 .then()
-                .spec(responseSpecification)
+                .spec(testResponseSpecification)
                 /* .assertThat()
                  .body("id", hasSize(10))*/
                 .extract().response();
