@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -50,9 +51,7 @@ public abstract class BaseTest {
     }
 
     @BeforeClass
-    public void setUp() throws FileNotFoundException {
-
-        printStream = new PrintStream("src/test/resources/RestAPILog.log");
+    public void setUp() {
 
         requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(BASE_URL_PATH)
@@ -75,7 +74,13 @@ public abstract class BaseTest {
 
 
     @BeforeMethod
-    public void beforeMethod(Method m) {
+    public void beforeMethod(Method m) throws IOException {
+
+        Path directories = Files.createDirectories(Paths.get("logs/" + System.currentTimeMillis()));
+        printStream = new PrintStream(
+                directories
+                        +  "/RestAPILog.log_" + System.currentTimeMillis());
+
         logger.info("********************************************************************************");
         logger.info("WAS STARTED TEST: " + m.getName());
         logger.info("THREAD ID: " + Thread.currentThread().getId());

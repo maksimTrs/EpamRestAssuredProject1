@@ -40,6 +40,6 @@ public class ResponseHeaderTest extends BaseTest {
                 .isEqualToIgnoringWhitespace(response.body().asString());
 
 
-        logger.debug("|||<<< Sent Header data:  " + queryRequestInfo().getHeaders().get("Content-Type") + " >>>|||");
+        logger.debug("|||<<< Were Sent Header ContentType data:  " + queryRequestInfo().getContentType() + " >>>|||");
     }
 }
