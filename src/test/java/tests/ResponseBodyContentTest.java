@@ -34,6 +34,7 @@ public class ResponseBodyContentTest extends BaseTest {
                 //.extract().as(UserItem.class);
                 .extract().as(new TypeRef<>() {
                 });
+        // UserItem[] users = response.as(UserItem[].class);
 
         assertThat(users.stream().mapToInt(UserItem::getId).count())
                 .isEqualTo(10);
