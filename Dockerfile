@@ -14,4 +14,5 @@ ENTRYPOINT java -cp selenium-docker.jar:selenium-docker-tests.jar:libs/*  org.te
 
 # mvn clean package -DskipTests
 # docker build -t roronoazorroippo/restassured-project1:latest .
-# docker run --rm -v E:/MAX/EPAM/AT_Mentoring_Java_Basic/testResult:/usr/app/test-output --name restassured-project1 roronoazorroippo/restassured-project1
+# docker run  -v E:/MAX/EPAM/AT_Mentoring_Java_Basic/testResult/allure-results:/usr/app/allure-results --name restassured-project1 roronoazorroippo/restassured-project1
+# allure serve
