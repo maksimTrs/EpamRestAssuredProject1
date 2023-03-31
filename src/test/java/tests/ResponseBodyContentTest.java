@@ -40,6 +40,24 @@ public class ResponseBodyContentTest extends BaseTest {
                 .isEqualTo(10);
     }
 
+    @Story("TEST: the content of the response body is the array of 10 users")
+    @Test(description = "TEST: the content of the response body is the array of 10 users")
+    public void validateResponseEntitiesCountTest3() {
+
+        List<UserItem> users = given()
+                .spec(testRequestSpecification)
+                .filter(new RequestLoggingFilter(LogDetail.URI, printStream))
+                .filter(new ResponseLoggingFilter(LogDetail.ALL, printStream))
+                .when()
+                .get()
+                .then()
+                .spec(testResponseSpecification)
+                .extract().jsonPath()
+                .getList(".", UserItem.class);
+
+        assertThat(users.size()).isEqualTo(10);
+    }
+
 
     @Story("TEST: the content of the response body is the array of 10 users - version 2.0")
     @Test(description = "TEST: the content of the response body is the array of 10 users - version 2.0")
