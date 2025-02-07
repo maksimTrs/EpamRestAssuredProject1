@@ -8,11 +8,11 @@
 
 ##### To start tests via Docker run command:
 
-`docker run  -v E:/MAX/EPAM/AT_Mentoring_Java_Basic/testResult/allure-results:/usr/app/allure-results --name restassured-project1 roronoazorroippo/restassured-project1`
+`docker run  -v /testResult/allure-results:/usr/app/allure-results --name restassured-project1 accDockerHub/restassured-project1`
 
 #### **_NOTE:_** Change Default Path to yours in this part:
 
- -v ~~E:/MAX/EPAM/AT_Mentoring_Java_Basic/testResult~~/allure-results:/usr/app/allure-results
+ -v /allure-results:/usr/app/allure-results
 
 run tests, after that open "-v" local folder and run the command via CMD/git bash:
 
